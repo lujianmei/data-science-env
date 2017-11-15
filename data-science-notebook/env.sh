@@ -19,4 +19,4 @@ export WORK_VOLUME
 
 # Container secrets volume name
 : "${SECRETS_VOLUME:=~/.scerets}"
-export SECRETS_VOLUME="~/.scerets"
+export SECRETS_VOLUME
