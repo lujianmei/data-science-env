@@ -65,7 +65,6 @@ refresh/%: ## pull the latest image from Docker Hub for a stack
 refresh-all: $(ALL_IMAGES:%=refresh/%) ## refresh all stacks
 
 release-all: 
-	refresh-all \
 	build-test-all \
 	tag-all \
 	push-all
