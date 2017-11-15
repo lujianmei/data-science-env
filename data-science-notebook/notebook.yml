@@ -10,14 +10,14 @@ services:
     container_name: ${NAME}
     volumes:
      - "workspace:/workspace/data-scientist-notes"
+     - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/work"
     ports:
+     #- "9000:8888"
      - "${PORT}:8888"
      # command detail can be found at: https://hub.docker.com/r/jupyter/datascience-notebook/
-    command: >
-      start-notebook.sh
-      --NotebookApp.base_url=/workspace/data-scientist-notes
-      --NotebookApp.token=''
-      -v /Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/workspace/data-scientist-notes
+     # python -c "import IPython;print IPython.lib.passwd()" to general a password
+    #command: start-singleuser.sh --NotebookApp.base_url=/workspace/data-scientist-notes --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27'
+    command: start-notebook.sh --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27' 
     depends_on:
       - postgres
 

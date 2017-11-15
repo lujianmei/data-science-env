@@ -67,6 +67,7 @@ docker volume create --name "$WORK_VOLUME"
 # Bring up a notebook container, using container name as project name
 echo "Bringing up notebook '$NAME'"
 docker-compose -f "$DIR/$CONFIG" -p "$NAME" up -d
-
-IP=$(docker-machine ip $(docker-machine active))
-echo "Notebook $NAME listening on $IP:$PORT"
+# docker-compose -f "$DIR/$CONFIG" -p "$NAME" run notebook -v ../../../my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/work -d
+# docker-compose -f "$DIR/$CONFIG" -p "$NAME" run postgre
+#IP=$(docker-machine ip $(docker-machine active))
+#echo "Notebook $NAME listening on $IP:$PORT"
