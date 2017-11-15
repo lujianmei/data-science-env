@@ -9,7 +9,7 @@ Data Science Development Environment in Docker
    1. Start without a password
 `
 git clone https://github.com/lujianmei/data-science-notebook.git data-science-notebook
-data-science-notebook/up.sh
+NAME=my-notebook PORT=8888 WORK_VOLUME=data-scientist-notes data-science-notebook/up.sh
 `
    2. Start with a password
 `
@@ -28,9 +28,9 @@ data-science-notebook/up.sh
   6. So that when a build is past, the images will be push into your Docker Cloud.
 `
 
-      # re-build all docker images, and not push onto docker cloud 
+       -- re-build all docker images, and not push onto docker cloud 
        make build-test-all
-      # re-build all docker images, and push onto docker cloud 
+       -- re-build all docker images, and push onto docker cloud 
        make release-all
 
 `

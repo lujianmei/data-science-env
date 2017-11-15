@@ -9,8 +9,8 @@ services:
     image: lujianmei/data-science-notebook
     container_name: ${NAME}
     volumes:
-     - "workspace:/workspace/data-scientist-notes"
-     - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/work"
+     #- "workspace:/workspace/data-scientist-notes"
+     - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/data-scientist-notes"
      - "/Users/kevin/workspace/github/data:/home/jovyan/data"
     ports:
      #- "9000:8888"
