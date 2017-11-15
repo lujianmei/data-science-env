@@ -11,6 +11,7 @@ services:
     volumes:
      - "workspace:/workspace/data-scientist-notes"
      - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/work"
+     - "/Users/kevin/workspace/github/data:/home/jovyan/data"
     ports:
      #- "9000:8888"
      - "${PORT}:8888"
