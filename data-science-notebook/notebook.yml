@@ -12,6 +12,7 @@ services:
      #- "workspace:/workspace/data-scientist-notes"
      - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/data-scientist-notes"
      - "/Users/kevin/workspace/github/data:/home/jovyan/data"
+     - "/Users/kevin/workspace/github/python-projects:/home/jovyan/python-projects"
     ports:
      #- "9000:8888"
      - "${PORT}:8888"
