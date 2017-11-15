@@ -1,0 +1,36 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+version: '2.0'
+
+services:
+  notebook:
+    build: .
+    image: lujianmei/docker-datascience-notebook
+    container_name: ${NAME}
+    volumes:
+     - "workspace:/workspace/data-scientist-notes"
+     - "secrets:/etc/letsencrypt"
+    ports:
+     - "${PORT}:8888"
+    environment:
+      USE_HTTPS: "no"
+      PASSWORD: ${PASSWORD}
+    command: >
+      start-notebook.sh
+      --NotebookApp.certfile=/etc/letsencrypt/fullchain.pem
+      --NotebookApp.keyfile=/etc/letsencrypt/privkey.pem
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+
+
+volumes:
+  workspace:
+    external:
+      name: ${WORK_VOLUME}
+  secrets:
+    external:
+      name: ${SECRETS_VOLUME}

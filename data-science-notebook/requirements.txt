@@ -1,0 +1,6 @@
+csvkit
+GeoAlchemy2
+ipython-sql
+psycopg2
+sqlalchemy
+RISE
