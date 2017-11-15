@@ -1,3 +1,2 @@
-#!/bin/bash
+Data Science Development Environment in Docker
 
-docker-compose up 
