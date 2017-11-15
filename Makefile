@@ -53,9 +53,9 @@ dev/%: ## run a foreground container for a stack
 	docker run -it --rm -p $(PORT):8888 $(DARGS) $(OWNER)/$(notdir $@) $(ARGS)
 
 push/%: ## push the latest and HEAD git SHA tags for a stack to Docker Hub
-	docker login -u="$DOCKER_NAME" -p="DOCKER_PASSWORD"
+	docker login -u="$DOCKER_NAME" -p="$DOCKER_PASSWORD"
 	docker push $(OWNER)/$(notdir $@):latest
-	docker push $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA)
+	#docker push $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA)
 
 push-all: $(ALL_IMAGES:%=push/%) ## push all stacks
 
@@ -66,8 +66,7 @@ refresh/%: ## pull the latest image from Docker Hub for a stack
 refresh-all: $(ALL_IMAGES:%=refresh/%) ## refresh all stacks
 
 release-all: build-test-all \
-	tag-all \
-	push-all
+						 push-all
 release-all: ## build, test, tag, and push all stacks
 
 retry/%:
@@ -78,11 +77,11 @@ retry/%:
 		sleep $$((i * 60)) ; \
 	done ; exit 1
 
-tag/%: ##tag the latest stack image with the HEAD git SHA
-	#docker tag -f $(OWNER)/$(notdir $@):latest $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA)
-	docker tag $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA) $(OWNER)/$(notdir $@):latest
+# tag/%: ##tag the latest stack image with the HEAD git SHA
+# 	#docker tag -f $(OWNER)/$(notdir $@):latest $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA)
+# 	docker tag $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA) $(OWNER)/$(notdir $@):latest
 
-tag-all: $(ALL_IMAGES:%=tag/%) ## tag all stacks
+# tag-all: $(ALL_IMAGES:%=tag/%) ## tag all stacks
 
 test/%: ## run a stack container, check for jupyter server liveliness
 	@-docker rm -f iut
