@@ -6,6 +6,6 @@ services:
 
 script:
   # only build 
-    # - make build-test-all
+    # - make build-testeall
   # build and then push to Docker Hub
     - make release-all

@@ -4,7 +4,7 @@
 # Use bash for inline if-statements in test target
 SHELL:=bash
 
-OWNER:=jupyter
+OWNER:=lujianmei
 # need to list these manually because there's a dependency tree
 ARCH:=$(shell uname -m)
 
@@ -17,6 +17,7 @@ endif
 ALL_IMAGES:=$(ALL_STACKS)
 
 GIT_MASTER_HEAD_SHA:=$(shell git rev-parse --short=12 --verify HEAD)
+#GIT_MASTER_HEAD_SHA:=$(shell git rev-parse HEAD)
 
 RETRIES:=10
 
@@ -64,8 +65,7 @@ refresh/%: ## pull the latest image from Docker Hub for a stack
 
 refresh-all: $(ALL_IMAGES:%=refresh/%) ## refresh all stacks
 
-release-all: 
-	build-test-all \
+release-all: build-test-all \
 	tag-all \
 	push-all
 release-all: ## build, test, tag, and push all stacks
@@ -79,7 +79,8 @@ retry/%:
 	done ; exit 1
 
 tag/%: ##tag the latest stack image with the HEAD git SHA
-	docker tag -f $(OWNER)/$(notdir $@):latest $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA)
+	#docker tag -f $(OWNER)/$(notdir $@):latest $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA)
+	docker tag $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA) $(OWNER)/$(notdir $@):latest
 
 tag-all: $(ALL_IMAGES:%=tag/%) ## tag all stacks
 
