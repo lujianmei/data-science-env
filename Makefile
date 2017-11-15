@@ -53,7 +53,7 @@ dev/%: ## run a foreground container for a stack
 	docker run -it --rm -p $(PORT):8888 $(DARGS) $(OWNER)/$(notdir $@) $(ARGS)
 
 push/%: ## push the latest and HEAD git SHA tags for a stack to Docker Hub
-	docker login -u="$DOCKER_NAME" -p="$DOCKER_PASSWORD"
+	docker login -u=$(DOCKER_NAME) -p=$(DOCKER_PASSWORD)
 	docker push $(OWNER)/$(notdir $@):latest
 	#docker push $(OWNER)/$(notdir $@):$(GIT_MASTER_HEAD_SHA)
 
