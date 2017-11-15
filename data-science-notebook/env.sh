@@ -6,7 +6,7 @@
 # configuration file.
 
 # Container name
-: "${NAME:=datascience-notebook}"
+: "${NAME:=data-science-notebook}"
 export NAME
 
 # Exposed container port
@@ -14,9 +14,9 @@ export NAME
 export PORT
 
 # Container work volume name
-: "${WORK_VOLUME:=/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes}"
+: "${WORK_VOLUME:=$NAME-work}"
 export WORK_VOLUME
 
 # Container secrets volume name
-: "${SECRETS_VOLUME:=~/.scerets}"
+: "${SECRETS_VOLUME:=$NAME-secrets}"
 export SECRETS_VOLUME

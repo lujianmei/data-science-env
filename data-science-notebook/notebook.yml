@@ -6,12 +6,18 @@ version: '2.0'
 services:
   notebook:
     build: .
-    image: lujianmei/docker-datascience-notebook
+    image: lujianmei/data-science-notebook
     container_name: ${NAME}
     volumes:
      - "workspace:/workspace/data-scientist-notes"
     ports:
      - "${PORT}:8888"
+     # command detail can be found at: https://hub.docker.com/r/jupyter/datascience-notebook/
+    command: >
+      start-notebook.sh
+      --NotebookApp.base_url=/workspace/data-scientist-notes
+      --NotebookApp.token=''
+      -v /Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/workspace/data-scientist-notes
     depends_on:
       - postgres
 
