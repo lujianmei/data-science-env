@@ -9,7 +9,10 @@ services:
     image: lujianmei/docker-datascience-notebook
     container_name: ${NAME}
     volumes:
-     - "workspace:/workspace/data-scientist-notes"
+     #- "workspace:/workspace/data-scientist-notes"
+     - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/data-scientist-notes"
+     - "/Users/kevin/workspace/github/data:/home/jovyan/data"
+     - "/Users/kevin/workspace/github/python-projects:/home/jovyan/python-projects"
     ports:
      - "${PORT}:8888"
     environment:
@@ -19,7 +22,11 @@ services:
       - postgres
 
   postgres:
+    container_name: ${NAME}-postgres
     image: postgres
+    ports:
+     - "5432:5432"
+
 
 
 volumes:

@@ -16,5 +16,4 @@ RUN pip install -r /workspace/requirements.txt \
                         && rm -rf /home/jovayan/.cache/pip/*
 
 ADD . /workspace/work-env
-#ADD /Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes /home/jovyan/data-scientist-notes
 

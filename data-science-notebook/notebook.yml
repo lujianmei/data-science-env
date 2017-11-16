@@ -14,7 +14,6 @@ services:
      - "/Users/kevin/workspace/github/data:/home/jovyan/data"
      - "/Users/kevin/workspace/github/python-projects:/home/jovyan/python-projects"
     ports:
-     #- "9000:8888"
      - "${PORT}:8888"
      # command detail can be found at: https://hub.docker.com/r/jupyter/datascience-notebook/
      # python -c "import IPython;print IPython.lib.passwd()" to general a password
@@ -24,7 +23,10 @@ services:
       - postgres
 
   postgres:
+    container_name: ${NAME}-postgres
     image: postgres
+    ports:
+     - "5432:5432"
 
 
 volumes:
