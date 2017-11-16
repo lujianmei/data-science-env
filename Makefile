@@ -84,11 +84,11 @@ retry/%:
 # tag-all: $(ALL_IMAGES:%=tag/%) ## tag all stacks
 
 test/%: ## run a stack container, check for jupyter server liveliness
-	@-docker rm -f iut
-	@docker run -d --name iut $(OWNER)/$(notdir $@)
+	@-docker rm -f container-test
+	@docker run -d --name container-test $(OWNER)/$(notdir $@)
 	@for i in $$(seq 0 9); do \
 		sleep $$i; \
-		docker exec iut bash -c 'wget http://localhost:8888 -O- | grep -i jupyter'; \
+		docker exec container-test bash -c 'wget http://localhost:8888 -O- | grep -i jupyter'; \
 		if [[ $$? == 0 ]]; then exit 0; fi; \
 	done ; exit 1
 
