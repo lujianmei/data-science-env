@@ -1,4 +1,5 @@
 Data Science Development Environment in Docker
+[![Build Status](https://travis-ci.org/lujianmei/data-science-env.svg?branch=master)](https://travis-ci.org/lujianmei/data-science-env)
 # How to use this repository
 
 ## Setting ENV ##
