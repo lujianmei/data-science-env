@@ -11,7 +11,7 @@ services:
     volumes:
      #- "workspace:/workspace/data-scientist-notes"
      - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/data-scientist-notes"
-     - "/Users/kevin/workspace/github/data:/home/jovyan/data"
+     - "/Users/kevin//bigdata:/home/jovyan/data"
      - "/Users/kevin/workspace/github/python-projects:/home/jovyan/python-projects"
     ports:
      - "${PORT}:8888"
@@ -27,7 +27,12 @@ services:
     image: postgres
     ports:
      - "5432:5432"
-
+    restart: always
+    environment:
+      POSTGERS_PASSWORD: trsadmin
+      # create a local volume for postgres data directory, version postgresql10.1
+    volumes:
+      - "/Users/kevin/bigdata/gpdata101:/var/lib/postgresql/data"
 
 volumes:
   workspace:
