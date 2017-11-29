@@ -34,6 +34,45 @@ services:
     volumes:
       - "/Users/kevin/bigdata/gpdata101:/var/lib/postgresql/data"
 
+  mongodb:
+     container_name: ${NAME}-mongo
+     image: mongo
+     ports:
+       - "27017:27017"
+       # - "28017:28017"
+     # environment:
+     #   MONGODB_PASS: trsadmin
+     #   MONGODB_DATABASE: pydatabase
+     volumes:
+      - "/Users/kevin/bigdata/mongodb:/data/db"
+
+  redis:
+    container_name: ${NAME}-redis
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "/Users/kevin/bigdata/redis:/data"
+    command: redis-server --appendonly yes
+
+  statsd:
+    container_name: graphite
+    image: graphiteapp/graphite-statsd
+    ports:
+      - "8088:80"
+      - "2003-2004:2003-2004"
+      - "2023-2024:2023-2024"
+      - "8125:8125/udp"
+      - "8126:8126"
+    volumes:
+      - "/Users/kevin/bigdata/graphite/conf:/opt/graphite/conf"
+      - "/Users/kevin/bigdata/graphite/storage:/opt/graphite/storage"
+      - "/Users/kevin/bigdata/graphite/log:/var/log"
+      - "/Users/kevin/bigdata/graphite/log:/var/graphite-log"
+      - "/Users/kevin/bigdata/graphite/log:/opt/statsd"
+      - "/Users/kevin/bigdata/graphite/logrotate.d:/etc/logrotate.d"
+
+
 volumes:
   workspace:
     external:
