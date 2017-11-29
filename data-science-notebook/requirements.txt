@@ -4,3 +4,5 @@ ipython-sql
 psycopg2
 sqlalchemy
 RISE
+scrapy
+jupyter_contrib_nbextensions
