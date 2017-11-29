@@ -57,20 +57,23 @@ services:
 
   statsd:
     container_name: graphite
-    image: graphiteapp/graphite-statsd
+    image: sitespeedio/graphite
     ports:
       - "8088:80"
-      - "2003-2004:2003-2004"
-      - "2023-2024:2023-2024"
-      - "8125:8125/udp"
-      - "8126:8126"
+      - "2003:2003"
+      # - "2003-2004:2003-2004"
+      # - "2023-2024:2023-2024"
+      # - "8125:8125/udp"
+      # - "8126:8126"
     volumes:
       - "/Users/kevin/bigdata/graphite/conf:/opt/graphite/conf"
-      - "/Users/kevin/bigdata/graphite/storage:/opt/graphite/storage"
-      - "/Users/kevin/bigdata/graphite/log:/var/log"
-      - "/Users/kevin/bigdata/graphite/log:/var/graphite-log"
-      - "/Users/kevin/bigdata/graphite/log:/opt/statsd"
-      - "/Users/kevin/bigdata/graphite/logrotate.d:/etc/logrotate.d"
+      - "/Users/kevin/bigdata/graphite/storage/whisper:/opt/graphite/storage/whisper"
+      # change login username and password: kevin/trsadmin
+      - "/Users/kevin/dotfiles-mac/.htpasswd:/etc/nginx/.htpasswd"
+      # - "/Users/kevin/bigdata/graphite/log:/var/log"
+      # - "/Users/kevin/bigdata/graphite/log:/var/graphite-log"
+      # - "/Users/kevin/bigdata/graphite/log:/opt/statsd"
+      # - "/Users/kevin/bigdata/graphite/logrotate.d:/etc/logrotate.d"
 
 
 volumes:
