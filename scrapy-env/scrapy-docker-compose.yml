@@ -7,7 +7,7 @@ services:
   python27:
     # build: .
     # based on centos/python-27-centos7, build by s2i https://hub.docker.com/r/centos/python-27-centos7/    
-    image: python:2.7
+    image: lujianmei/scrapy-app
     container_name: scrapy-app
     volumes:
      #- "workspace:/workspace/data-scientist-notes"
