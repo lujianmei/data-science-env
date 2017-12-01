@@ -9,9 +9,13 @@ OWNER:=lujianmei
 ARCH:=$(shell uname -m)
 
 ifeq ($(ARCH),ppc64le)
-ALL_STACKS:=data-science-notebook
+ALL_STACKS:=data-science-notebook \
+		        scrapy-env
+
 else
-ALL_STACKS:=data-science-notebook
+ALL_STACKS:=data-science-notebook \
+	          scrapy-env
+
 endif
 
 ALL_IMAGES:=$(ALL_STACKS)

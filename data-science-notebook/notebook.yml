@@ -6,7 +6,7 @@ version: '2.0'
 services:
   notebook:
     build: .
-    image: lujianmei/data-science-notebook
+    image: lujianmei/data-science-notebook:${NOTEBOOK_IMAGE_VERSION}
     container_name: ${NAME}
     volumes:
      #- "workspace:/workspace/data-scientist-notes"
@@ -19,64 +19,69 @@ services:
      # python -c "import IPython;print IPython.lib.passwd()" to general a password
     #command: start-singleuser.sh --NotebookApp.base_url=/workspace/data-scientist-notes --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27'
     command: start-notebook.sh --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27' 
+    hostname: 'my-notebook'
     depends_on:
       - postgres
+      # - mongodb
+      # - redis
+      # - graphite
+    networks:
+      - front-tier
+      - back-tier
+    links:
+      - 'postgres:postgres.host'
+      # - 'mongodb:mongodb.host'
+      # - 'graphite:graphite.host'
+      # - 'redis:redis.host'
 
   postgres:
     container_name: ${NAME}-postgres
     image: postgres
+    hostname: 'postgres.host'
     ports:
      - "5432:5432"
     restart: always
+    networks:
+      - back-tier
     environment:
       POSTGERS_PASSWORD: trsadmin
       # create a local volume for postgres data directory, version postgresql10.1
     volumes:
       - "/Users/kevin/bigdata/gpdata101:/var/lib/postgresql/data"
 
-  mongodb:
-     container_name: ${NAME}-mongo
-     image: mongo
-     ports:
-       - "27017:27017"
-       # - "28017:28017"
-     # environment:
-     #   MONGODB_PASS: trsadmin
-     #   MONGODB_DATABASE: pydatabase
-     volumes:
-      - "/Users/kevin/bigdata/mongodb:/data/db"
+  # mongodb:
+  #    container_name: ${NAME}-mongo
+  #    image: mongo
+  #    hostname: 'mongo.host'
+  #    ports:
+  #      - "27017:27017"
+  #      # - "28017:28017"
+  #    # environment:
+  #    #   MONGODB_PASS: trsadmin
+  #    #   MONGODB_DATABASE: pydatabase
+  #    volumes:
+  #      - "/Users/kevin/bigdata/mongodb:/data/db"
+  #    networks:
+  #       - back-tier
 
-  redis:
-    container_name: ${NAME}-redis
-    image: redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - "/Users/kevin/bigdata/redis:/data"
-    command: redis-server --appendonly yes
-
-  statsd:
-    container_name: graphite
-    image: sitespeedio/graphite
-    ports:
-      - "8088:80"
-      - "2003:2003"
-      # - "2003-2004:2003-2004"
-      # - "2023-2024:2023-2024"
-      # - "8125:8125/udp"
-      # - "8126:8126"
-    volumes:
-      - "/Users/kevin/bigdata/graphite/conf:/opt/graphite/conf"
-      - "/Users/kevin/bigdata/graphite/storage/whisper:/opt/graphite/storage/whisper"
-      # change login username and password: kevin/trsadmin
-      - "/Users/kevin/dotfiles-mac/.htpasswd:/etc/nginx/.htpasswd"
-      # - "/Users/kevin/bigdata/graphite/log:/var/log"
-      # - "/Users/kevin/bigdata/graphite/log:/var/graphite-log"
-      # - "/Users/kevin/bigdata/graphite/log:/opt/statsd"
-      # - "/Users/kevin/bigdata/graphite/logrotate.d:/etc/logrotate.d"
-
+  # redis:
+  #   container_name: ${NAME}-redis
+  #   image: redis
+  #   hostname: 'redis.host'
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - "/Users/kevin/bigdata/redis:/data"
+  #   command: redis-server --appendonly yes
+  #   networks:
+  #       - back-tier
 
 volumes:
   workspace:
     external:
       name: ${WORK_VOLUME}
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge

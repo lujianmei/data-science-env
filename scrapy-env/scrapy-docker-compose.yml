@@ -1,0 +1,99 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+version: '2.0'
+
+services:
+  python27:
+    # build: .
+    # based on centos/python-27-centos7, build by s2i https://hub.docker.com/r/centos/python-27-centos7/    
+    image: python:2.7
+    container_name: scrapy-app
+    volumes:
+     #- "workspace:/workspace/data-scientist-notes"
+     - "/Users/kevin/bigdata:/opt/app-root/data"
+     - "/Users/kevin/workspace/github/python-projects:/usr/src/"
+     - "$PWD:/usr/init/"
+    ports:
+     - "${PORT}:8080"
+     # command detail can be found at: https://hub.docker.com/r/jupyter/datascience-notebook/
+     # python -c "import IPython;print IPython.lib.passwd()" to general a password
+    #command: start-singleuser.sh --NotebookApp.base_url=/workspace/data-scientist-notes --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27'
+    # command: start-notebook.sh --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27' 
+    command: 
+      - -w /usr/init/ python init.py
+      # - 
+    hostname: 'scrapy-app'
+    depends_on:
+      - mongodb
+      - redis
+      - graphite
+    networks:
+      - front-tier
+      - back-tier
+    links:
+      - 'mongodb:mongodb.host'
+      - 'graphite:graphite.host'
+      - 'redis:redis.host'
+
+  mongodb:
+     container_name: ${NAME}-mongo
+     image: mongo
+     hostname: 'mongo.host'
+     ports:
+       - "27017:27017"
+       # - "28017:28017"
+     # environment:
+     #   MONGODB_PASS: trsadmin
+     #   MONGODB_DATABASE: pydatabase
+     volumes:
+       - "/Users/kevin/bigdata/mongodb:/data/db"
+     networks:
+        - back-tier
+
+  redis:
+    container_name: ${NAME}-redis
+    image: redis
+    hostname: 'redis.host'
+    ports:
+      - "6379:6379"
+    volumes:
+      - "/Users/kevin/bigdata/redis:/data"
+    command: redis-server --appendonly yes
+    networks:
+        - back-tier
+
+  graphite:
+    container_name: graphite
+    image: sitespeedio/graphite
+    hostname: 'graphite.host'
+    ports:
+      - "8088:80"
+      - "2003:2003"
+      # - "2003-2004:2003-2004"
+      # - "2023-2024:2023-2024"
+      # - "8125:8125/udp"
+      # - "8126:8126"
+    volumes:
+      - "/Users/kevin/bigdata/graphite/conf:/opt/graphite/conf"
+      - "/Users/kevin/bigdata/graphite/storage/whisper:/opt/graphite/storage/whisper"
+      # change login username and password: kevin/trsadmin
+      - "/Users/kevin/dotfiles-mac/.htpasswd:/etc/nginx/.htpasswd"
+      # - "/Users/kevin/bigdata/graphite/log:/var/log"
+      # - "/Users/kevin/bigdata/graphite/log:/var/graphite-log"
+      # - "/Users/kevin/bigdata/graphite/log:/opt/statsd"
+      # - "/Users/kevin/bigdata/graphite/logrotate.d:/etc/logrotate.d"
+    networks:
+        - front-tier
+        - back-tier
+
+
+volumes:
+  workspace:
+    external:
+      name: ${WORK_VOLUME}
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge

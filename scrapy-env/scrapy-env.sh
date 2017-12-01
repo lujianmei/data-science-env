@@ -6,7 +6,7 @@
 # configuration file.
 
 # Container name
-: "${NAME:=data-science-notebook}"
+: "${NAME:=scrapy}"
 export NAME
 
 # Exposed container port
@@ -22,7 +22,7 @@ export WORK_VOLUME
 export SECRETS_VOLUME
 
 # Container version of notebook
-: "${NOTEBOOK_IMAGE_VERSION:=$NOTEBOOK_IMAGE_VERSION}"
-export NOTEBOOK_IMAGE_VERSION
+: "${SCRAPY_IMAGE_VERSION:=$SCRAPY_IMAGE_VERSION}"
+export SCRAPY_IMAGE_VERSION
 
 
