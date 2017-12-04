@@ -7,13 +7,13 @@ services:
   python27:
     # build: .
     # based on centos/python-27-centos7, build by s2i https://hub.docker.com/r/centos/python-27-centos7/    
-    image: lujianmei/python27-app-env
+    image: lujianmei/scrapy-app
     container_name: scrapy-app
     volumes:
      #- "workspace:/workspace/data-scientist-notes"
      - "/Users/kevin/bigdata:/opt/app-root/data"
-     - "/Users/kevin/workspace/github/python-projects:/usr/src/"
-     - "$PWD:/usr/init/"
+     - "/Users/kevin/workspace/github/python-projects:/opt/app-root/python-projects"
+     # - "$PWD:/usr/init/"
     ports:
      - "${PORT}:8080"
      # command detail can be found at: https://hub.docker.com/r/jupyter/datascience-notebook/
