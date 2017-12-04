@@ -49,8 +49,8 @@ build/%: ## build the latest image for a stack
 
 build-all: $(foreach I,$(ALL_IMAGES),arch_patch/$(I) build/$(I) ) ## build all stacks
 build-test-all: $(foreach I,$(ALL_IMAGES),arch_patch/$(I) build/$(I) test/$(I) ) ## build and test all stacks
-build-test-data-science-env: $(foreach I,$(ALL_IMAGES[0]),arch_patch/$(I) build/$(I) test/$(I) ) ## build and test data science notebook
-build-test-scrapy-env: $(foreach I,$(ALL_IMAGES[1]),arch_patch/$(I) build/$(I) ) ## build and test data science notebook
+build-test-data-science-env: $(arch_patch/$(ALL_IMAGES[0]) build/$(ALL_IMAGES[0]) test/$(ALL_IMAGES[0]) ## build and test data science notebook
+build-test-scrapy-env: $(arch_patch/$(ALL_IMAGES[1]) build/$(ALL_IMAGES[1] ) ## build and test data science notebook
 
 dev/%: ARGS?=
 dev/%: DARGS?=
