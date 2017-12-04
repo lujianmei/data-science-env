@@ -2,11 +2,11 @@
 import SimpleHTTPServer
 import SocketServer
 
-PORT = 8888
+PORT = 8889
 
 Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
 
 httpd = SocketServer.TCPServer(("", PORT), Handler)
 
-print "jupyter serving at port", PORT
+print "<title>Jupyter Notebook</title>jupyter serving at port", PORT
 httpd.serve_forever()
