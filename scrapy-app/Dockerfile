@@ -6,8 +6,8 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN mkdir /opt/app-root/data
-RUN mkdir /opt/app-root/python-projects
+RUN mkdir -p /opt/app-root/data
+RUN mkdir -p /opt/app-root/python-projects
 
 COPY . .
 
