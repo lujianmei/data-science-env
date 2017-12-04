@@ -7,7 +7,7 @@ services:
   python27:
     # build: .
     # based on centos/python-27-centos7, build by s2i https://hub.docker.com/r/centos/python-27-centos7/    
-    image: lujianmei/scrapy-app
+    image: lujianmei/python27-app-env
     container_name: scrapy-app
     volumes:
      #- "workspace:/workspace/data-scientist-notes"
@@ -20,8 +20,6 @@ services:
      # python -c "import IPython;print IPython.lib.passwd()" to general a password
     #command: start-singleuser.sh --NotebookApp.base_url=/workspace/data-scientist-notes --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27'
     # command: start-notebook.sh --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27' 
-    command: 
-      - -w /usr/init/ python init.py
       # - 
     hostname: 'scrapy-app'
     depends_on:

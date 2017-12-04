@@ -10,11 +10,11 @@ ARCH:=$(shell uname -m)
 
 ifeq ($(ARCH),ppc64le)
 ALL_STACKS:=data-science-notebook \
-		        scrapy-env
+		        scrapy-app
 
 else
 ALL_STACKS:=data-science-notebook \
-	          scrapy-env
+	          scrapy-app
 
 endif
 
