@@ -7,5 +7,6 @@ RISE
 jupyter_contrib_nbextensions
 
 scrapy
-redispy
+# redispy
 pymongo
+scrapy-redis

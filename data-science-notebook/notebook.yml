@@ -22,17 +22,17 @@ services:
     hostname: 'my-notebook'
     depends_on:
       - postgres
-      # - mongodb
-      # - redis
-      # - graphite
+      - mongodb
+      - redis
+      - graphite
     networks:
       - front-tier
       - back-tier
     links:
       - 'postgres:postgres.host'
-      # - 'mongodb:mongodb.host'
-      # - 'graphite:graphite.host'
-      # - 'redis:redis.host'
+      - 'mongodb:mongodb.host'
+      - 'graphite:graphite.host'
+      - 'redis:redis.host'
 
   postgres:
     container_name: ${NAME}-postgres
@@ -49,32 +49,56 @@ services:
     volumes:
       - "/Users/kevin/bigdata/gpdata101:/var/lib/postgresql/data"
 
-  # mongodb:
-  #    container_name: ${NAME}-mongo
-  #    image: mongo
-  #    hostname: 'mongo.host'
-  #    ports:
-  #      - "27017:27017"
-  #      # - "28017:28017"
-  #    # environment:
-  #    #   MONGODB_PASS: trsadmin
-  #    #   MONGODB_DATABASE: pydatabase
-  #    volumes:
-  #      - "/Users/kevin/bigdata/mongodb:/data/db"
-  #    networks:
-  #       - back-tier
+  mongodb:
+     container_name: ${NAME}-mongo
+     image: mongo
+     hostname: 'mongo.host'
+     ports:
+       - "27017:27017"
+       # - "28017:28017"
+     # environment:
+     #   MONGODB_PASS: trsadmin
+     #   MONGODB_DATABASE: pydatabase
+     volumes:
+       - "/Users/kevin/bigdata/mongodb:/data/db"
+     networks:
+        - back-tier
 
-  # redis:
-  #   container_name: ${NAME}-redis
-  #   image: redis
-  #   hostname: 'redis.host'
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - "/Users/kevin/bigdata/redis:/data"
-  #   command: redis-server --appendonly yes
-  #   networks:
-  #       - back-tier
+  redis:
+    container_name: ${NAME}-redis
+    image: redis
+    hostname: 'redis.host'
+    ports:
+      - "6379:6379"
+    volumes:
+      - "/Users/kevin/bigdata/redis:/data"
+    command: redis-server --appendonly yes
+    networks:
+        - back-tier
+  graphite:
+    container_name: ${NAME}-graphite
+    image: sitespeedio/graphite
+    hostname: 'graphite.host'
+    ports:
+      - "8088:80"
+      - "2003:2003"
+      # - "2003-2004:2003-2004"
+      # - "2023-2024:2023-2024"
+      # - "8125:8125/udp"
+      # - "8126:8126"
+    volumes:
+      - "/Users/kevin/bigdata/graphite/conf:/opt/graphite/conf"
+      - "/Users/kevin/bigdata/graphite/storage/whisper:/opt/graphite/storage/whisper"
+      # change login username and password: kevin/trsadmin
+      - "/Users/kevin/dotfiles-mac/.htpasswd:/etc/nginx/.htpasswd"
+      # - "/Users/kevin/bigdata/graphite/log:/var/log"
+      # - "/Users/kevin/bigdata/graphite/log:/var/graphite-log"
+      # - "/Users/kevin/bigdata/graphite/log:/opt/statsd"
+      # - "/Users/kevin/bigdata/graphite/logrotate.d:/etc/logrotate.d"
+    networks:
+        - front-tier
+        - back-tier
+
 
 volumes:
   workspace:
