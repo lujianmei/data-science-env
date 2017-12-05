@@ -4,7 +4,10 @@ USER root
 RUN mkdir /workspace
 RUN chown -R jovyan: /workspace
 
-RUN apt-get install openssl libssl-dev
+RUN apt-get update
+RUN apt-get install openssl
+RUN apt-get install libssl-dev
+
 
 USER jovyan
 RUN mkdir /workspace/work-env
