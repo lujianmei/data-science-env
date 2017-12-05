@@ -5,8 +5,9 @@ RUN mkdir /workspace
 RUN chown -R jovyan: /workspace
 
 RUN apt-get update
-RUN apt-get -y install openssl
-RUN apt-get -y install libssl-dev
+# install dependencies for pip install cryptography
+RUN apt-get -y install build-essential openssl libssl-dev libffi-dev python3-dev
+# RUN apt-get -y install libssl-dev
 
 
 USER jovyan
