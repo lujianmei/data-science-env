@@ -4,6 +4,7 @@ USER root
 RUN mkdir /workspace
 RUN chown -R jovyan: /workspace
 
+RUN yum install openssl-devel
 
 USER jovyan
 RUN mkdir /workspace/work-env
