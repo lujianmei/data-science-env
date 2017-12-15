@@ -52,7 +52,7 @@ services:
   mongodb:
      container_name: ${NAME}-mongo
      image: mongo
-     hostname: 'mongo.host'
+     hostname: 'mongodb.host'
      ports:
        - "27017:27017"
        # - "28017:28017"
