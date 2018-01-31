@@ -1,0 +1,23 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+version: '2.0'
+
+services:
+  notebook:
+    build: .
+    image: lujianmei/kera-jupyter:${NOTEBOOK_IMAGE_VERSION}
+    container_name: ${NAME}
+    volumes:
+     #- "workspace:/workspace/data-scientist-notes"
+     - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/data-scientist-notes"
+     - "/Users/kevin//bigdata:/home/jovyan/data"
+     - "/Users/kevin/workspace/github/python-projects:/home/jovyan/python-projects"
+    ports:
+     - "${PORT}:8888"
+     # command detail can be found at: https://hub.docker.com/r/jupyter/datascience-notebook/
+     # python -c "import IPython;print IPython.lib.passwd()" to general a password
+    #command: start-singleuser.sh --NotebookApp.base_url=/workspace/data-scientist-notes --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27'
+    command: start-notebook.sh --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27' 
+    hostname: 'my-kera-jupyter'
+

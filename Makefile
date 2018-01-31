@@ -10,11 +10,13 @@ ARCH:=$(shell uname -m)
 
 ifeq ($(ARCH),ppc64le)
 ALL_STACKS:=data-science-notebook \
-		        scrapy-app
+		        scrapy-app \
+						kera-jupyter
 
 else
 ALL_STACKS:=data-science-notebook \
-	          scrapy-app
+	          scrapy-app \
+						kera-jupyter
 
 endif
 
