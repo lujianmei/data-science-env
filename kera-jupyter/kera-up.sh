@@ -59,7 +59,7 @@ else
 fi
 
 # Setup environment
-source "$DIR/env.sh"
+source "$DIR/kera-env.sh"
 
 # Create a Docker volume to store notebooks
 docker volume create --name "$WORK_VOLUME"

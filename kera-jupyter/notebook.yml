@@ -5,13 +5,13 @@ version: '2.0'
 
 services:
   notebook:
-    build: .
-    image: lujianmei/kera-jupyter:${NOTEBOOK_IMAGE_VERSION}
+    # build: .
+    image: lujianmei/kera-jupyter:${KERA_IMAGE_VERSION}
     container_name: ${NAME}
     volumes:
      #- "workspace:/workspace/data-scientist-notes"
      - "/Users/kevin/workspace/github/my-blog/work-notes/notes/data-scientist-notes:/home/jovyan/data-scientist-notes"
-     - "/Users/kevin//bigdata:/home/jovyan/data"
+     - "/Users/kevin/bigdata:/home/jovyan/data"
      - "/Users/kevin/workspace/github/python-projects:/home/jovyan/python-projects"
     ports:
      - "${PORT}:8888"
