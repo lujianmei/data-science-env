@@ -1,0 +1,62 @@
+# Copyright (c) Jupyter Development Team.
+# Distributed under the terms of the Modified BSD License.
+
+version: '2.0'
+
+services:
+  notebook:
+    build: .
+    # image:  lujianmei/metabase/metabase
+    image:  metabase/metabase
+    container_name: ${NAME}
+    volumes:
+     #- "workspace:/workspace/data-scientist-notes"
+     - "/Users/kevin/bigdata/metabase/metabase-data:/metabase-data"
+     # - "/Users/kevin/bigdata/metabase/metabase-app:/app"
+    ports:
+     - "${PORT}:3000"
+     # command detail can be found at: https://hub.docker.com/r/jupyter/datascience-notebook/
+     # python -c "import IPython;print IPython.lib.passwd()" to general a password
+    #command: start-singleuser.sh --NotebookApp.base_url=/workspace/data-scientist-notes --NotebookApp.password='sha1:e8afeb79be50:67f125bd5d6f4c4db812e56cd79d3ef715356b27'
+    # command:
+    environment:
+      - MB_DB_FILE=/metabase-data/metabase.db
+      - MB_DB_TYPE=postgres
+      - MB_DB_DBNAME=metabase
+      - MB_DB_PORT=5432
+      - MB_DB_USER=postgres
+      - MB_DB_PASS=trsadmin
+      - MB_DB_HOST=postgres.host
+    hostname: 'metabase'
+    depends_on:
+      - postgres
+    networks:
+      - front-tier
+    links:
+      - 'postgres:postgres.host'
+
+  postgres:
+    container_name: ${NAME}-postgres
+    image: postgres
+    hostname: 'postgres.host'
+    ports:
+     - "5432:5432"
+    restart: always
+    networks:
+      - front-tier
+    environment:
+      POSTGERS_PASSWORD: trsadmin
+      # create a local volume for postgres data directory, version postgresql10.1
+    volumes:
+      - "/Users/kevin/bigdata/gpdata101:/var/lib/postgresql/data"
+
+
+volumes:
+  workspace:
+    external:
+      name: ${WORK_VOLUME}
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge

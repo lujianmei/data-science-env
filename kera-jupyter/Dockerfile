@@ -14,3 +14,7 @@ USER jovyan
 RUN conda install -y tensorflow \
 && pip install --upgrade --no-deps git+git://github.com/fchollet/keras.git \
 && conda install --no-deps -y h5py
+
+# Solve the issue of "compiletime version 3.5 of module 'tensorflow.python.framework.fast_tensor_util' does not match runtime version 3.6"
+# https://github.com/lakshayg/tensorflow-build
+RUN pip install --ignore-installed --upgrade https://github.com/sigilioso/tensorflow-build/raw/master/tensorflow-1.4.0-cp36-cp36m-linux_x86_64.whl
