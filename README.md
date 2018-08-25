@@ -2,6 +2,7 @@ Data Science Development Environment in Docker
 [![Build Status](https://travis-ci.org/lujianmei/data-science-env.svg?branch=master)](https://travis-ci.org/lujianmei/data-science-env)
 # How to use this repository
 
+
 ## Setting ENV ##
    1. Open bin/env.sh
    2. Change your local jupyter notebooks directory.(I did not put all notebook into Docker, i just using a Volume to mount on the container)
