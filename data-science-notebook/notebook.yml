@@ -39,7 +39,7 @@ services:
     image: postgres
     hostname: 'postgres.host'
     ports:
-     - "5432:5432"
+     - "5433:5432"
     restart: always
     networks:
       - back-tier
